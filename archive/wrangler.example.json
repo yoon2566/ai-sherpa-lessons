@@ -1,0 +1,34 @@
+{
+  "name": "ai-sherpa-lessons-copy",
+  "compatibility_date": "2026-10-23",
+  "compatibility_flags": [],
+  "main": "../worker/cloudflare-worker.js",
+  "assets": {
+    "directory": "../public",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "GAME_RATE_LIMIT",
+        "class_name": "GameRateLimit"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": [
+        "GameRateLimit"
+      ]
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "ARTWORK_DB",
+      "database_name": "ai-sherpa-lessons-artwork_db",
+      "database_id": "REPLACE_WITH_YOUR_DATABASE_ID"
+    }
+  ]
+}

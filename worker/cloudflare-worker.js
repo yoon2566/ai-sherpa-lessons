@@ -7,7 +7,7 @@ import { DurableObject } from "cloudflare:workers";
 // ai-gateway.mjs
 var MODEL = "anthropic/claude-haiku-5.5";
 var EFFORT = "high";
-var REQUESTS_PER_MINUTE = 1e3;
+var REQUESTS_PER_MINUTE = 5e3;
 var MAX_REQUEST_BYTES = 32e5;
 var MAX_HTML_CHARS = 1e6;
 var SYSTEM = `\uD55C\uAD6D\uC5B4\uB85C \uC790\uC5F0\uC2A4\uB7FD\uAC8C \uB300\uD654\uD558\uBA70 \uC0AC\uC6A9\uC790\uAC00 \uCCA8\uBD80\uD55C \uC774\uBBF8\uC9C0\uB97C \uC0B4\uD3B4\uBCF4\uACE0 \uC694\uCCAD\uC5D0 \uB2F5\uD55C\uB2E4.
@@ -186,7 +186,7 @@ async function handleBoard(request, env) {
       const existing = await env.ARTWORK_DB.prepare(`SELECT ${metadata} FROM works WHERE id=?1`).bind(id).first();
       if (existing) return json2({ item: existing, duplicate: true }, 200);
       const now = Date.now();
-      const result = await env.ARTWORK_DB.prepare("INSERT OR IGNORE INTO works (id,author,title,lesson,html,bytes,created_at) SELECT ?1,?2,?3,?4,?5,?6,?7 WHERE (SELECT COUNT(*) FROM works WHERE created_at>?8)<1000").bind(id, author, title, lesson, input.html, size, now, now - 6e4).run();
+      const result = await env.ARTWORK_DB.prepare("INSERT OR IGNORE INTO works (id,author,title,lesson,html,bytes,created_at) SELECT ?1,?2,?3,?4,?5,?6,?7 WHERE (SELECT COUNT(*) FROM works WHERE created_at>?8)<5000").bind(id, author, title, lesson, input.html, size, now, now - 6e4).run();
       if (result.meta.changes === 0) {
         const duplicate = await env.ARTWORK_DB.prepare(`SELECT ${metadata} FROM works WHERE id=?1`).bind(id).first();
         if (duplicate) return json2({ item: duplicate, duplicate: true });
