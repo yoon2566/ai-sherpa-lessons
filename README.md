@@ -7,7 +7,7 @@
 - retirement/: 안내 HTML 및 전용 Worker. 기존 게임 파일은 업로드하지 않습니다.
 - wrangler.json: 안내 Worker 전용 설정. API·D1·Assets·Durable Object 바인딩이 없습니다.
 - 모든 /api 및 /api/* 요청과 POST 등 변경 요청은 HTTP 410으로 종료됩니다.
-- OpenRouter 비밀키는 운영 Worker에서 제거합니다. 외부 AI 호출 코드는 현재 배포에 포함되지 않습니다.
+- OpenRouter 비밀키는 운영 Worker에서 제거했습니다. 외부 AI 호출 코드는 현재 배포에 포함되지 않습니다.
 - npm install 후 npm run check / npm run deploy. 비밀키 등록은 필요하지 않습니다.
 
 ## 마지막 운영 소스 보관
@@ -21,3 +21,5 @@
 public/과 worker/는 보관 소스이며 현재 안내 Worker에서 접근하거나 실행하지 않습니다. 기존 공용 게시판 데이터는 다른 버전이 계속 사용하므로 유지합니다. 이전 호출 제한 클래스는 저장소를 삭제하지 않기 위해 비활성 구현만 남기며 바인딩이나 호출 경로가 없습니다.
 
 복원은 별도 작업입니다. 새 Worker 이름·새 DB와 명시적으로 선택한 키로 구성한 뒤 검증해야 하며, 현재 종료 안내 주소에 곧바로 덮어쓰지 않습니다.
+
+검증 결과는 [RETIREMENT.md](RETIREMENT.md)를 참고하세요. 버전별 미리보기 URL도 비활성화했습니다.
